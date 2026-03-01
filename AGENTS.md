@@ -1775,13 +1775,13 @@ cfg_if::cfg_if! {
 
 ```toml
 [package]
-name = "rust-private-lib-template"
+name = "opinion-trade-api"
 version = "0.1.0"
 edition = "2024"
 rust-version = "1.85.0"
-description = "A template for creating Rust private repositories."
-homepage = "https://github.com/DenisGorbachev/rust-private-template"
-repository = "https://github.com/DenisGorbachev/rust-private-template"
+description = ""
+homepage = "https://github.com/DenisGorbachev/opinion-trade-api"
+repository = "https://github.com/DenisGorbachev/opinion-trade-api"
 readme = "README.md"
 keywords = []
 categories = []
@@ -1803,7 +1803,7 @@ exclude = [
 ]
 
 [package.metadata.details]
-title = "Rust private template"
+title = ""
 tagline = ""
 summary = ""
 announcement = ""
