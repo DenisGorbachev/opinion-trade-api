@@ -10,6 +10,7 @@ pub struct Market {
     pub rules: String,
 }
 
+// TODO: Remove `allow(clippy::infallible_try_from)` when the error contains some variants
 #[allow(clippy::infallible_try_from)]
 impl TryFrom<MarketRaw> for Market {
     type Error = TryFromMarketRawForMarketError;
