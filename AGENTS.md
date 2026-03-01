@@ -423,9 +423,29 @@ You are running in a sandbox with limited network access.
 * If you need to run a network command, just do it without checking permissions (they will be enforced automatically)
 * If you need to read the data from other domains, use the web search tool (this tool is executed outside of sandbox)
 
+## Guidelines for `serde`
+
+* Every input data type must derive `Serialize` and `Deserialize`
+* Every `Option`-wrapped field must have attributes:
+  * `#[serde(skip_serializing_if = "Option::is_none")]`
+* Every `OffsetDateTime` field must have attributes:
+  * `#[serde(with = "time::serde::rfc3339")]`
+* Every `Option<OffsetDateTime>` field must have attributes:
+  * `#[serde(with = "time::serde::rfc3339::option")]`
+* Every field that stores a physical value must be serialized as a map that includes at least two fields: `value` and `unit`
+  * `value` must be a primitive type
+  * `unit` must be a string that contains the unit name in singular form (for example: "nanosecond", "second", "minute", "kilogram", "meter")
+    * `unit` may contain a prefix (for example: "nano", "kilo")
+
 ## Guidelines for `subtype`
 
 * The macro calls that begin with `subtype` (for example, `subtype!` and `subtype_string!`) expand to newtypes.
+
+## Knowledge for opinion.trade
+
+### API
+
+* Some fields are not optional (contrary to the docs).
 
 ## Error handling
 
@@ -1778,7 +1798,7 @@ cfg_if::cfg_if! {
 name = "opinion-trade-api"
 version = "0.1.0"
 edition = "2024"
-rust-version = "1.85.0"
+rust-version = "1.91.0"
 description = "API client for https://opinion.trade/"
 homepage = "https://github.com/DenisGorbachev/opinion-trade-api"
 repository = "https://github.com/DenisGorbachev/opinion-trade-api"
@@ -1819,10 +1839,29 @@ standard-traits = { git = "https://github.com/DenisGorbachev/standard-traits" }
 strum = { version = "0.27.2", features = ["derive"] }
 stub-macro = { version = "0.2.1" }
 subtype = { git = "https://github.com/DenisGorbachev/subtype" }
+futures = "0.3.32"
+serde = { version = "1.0.228", features = ["derive"] }
+alloy = { version = "1.5.2", default-features = false, features = ["std", "serde", "signer-mnemonic"] }
+# alloy-primitives is needed to enable the "rkyv" feature
+alloy-primitives = { version = "1.5.4", features = ["rkyv"] }
+reqwest = { version = "0.13.1", features = ["json"] }
+rkyv = { version = "0.8.14", optional = true }
+bon = { version = "3.9.0", features = ["implied-bounds"] }
+thiserror = "2.0.18"
+
+[dev-dependencies]
+tokio = { version = "1.49.0", features = ["macros", "fs", "net", "rt", "rt-multi-thread"] }
+clap = { version = "4.5.60", features = ["derive", "env"] }
 ```
 
 ### src/lib.rs
 
 ```rust
 //! This is a module-level comment for a Rust lib
+mod rest_client;
+pub use rest_client::*;
+mod models;
+pub use models::*;
+mod requests;
+pub use requests::*;
 ```
