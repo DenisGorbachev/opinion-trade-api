@@ -23,7 +23,7 @@ exclude = [
     "mise.toml",
     "rumdl.toml",
     "rustfmt.toml",
-    "yolobox"
+    ".yolobox"
 ]
 
 [package.metadata.details]
@@ -34,25 +34,16 @@ announcement = ""
 readme = { generate = false }
 
 [dependencies]
-derive-getters = { version = "0.5.0", features = ["auto_copy_getters"] }
 derive-new = "0.7.0"
 derive_more = { version = "2.1.1", features = ["full"] }
-errgonomic = { git = "https://github.com/DenisGorbachev/errgonomic" }
-itertools = "0.14.0"
-standard-traits = { git = "https://github.com/DenisGorbachev/standard-traits" }
 strum = { version = "0.27.2", features = ["derive"] }
-stub-macro = { version = "0.2.1" }
-subtype = { git = "https://github.com/DenisGorbachev/subtype" }
 futures = "0.3.32"
 serde = { version = "1.0.228", features = ["derive"] }
-alloy = { version = "1.5.2", default-features = false, features = ["std", "serde", "signer-mnemonic"] }
-# alloy-primitives is needed to enable the "rkyv" feature
-alloy-primitives = { version = "1.5.4", features = ["rkyv"] }
-reqwest = { version = "0.13.1", features = ["json"] }
 rkyv = { version = "0.8.14", optional = true }
 bon = { version = "3.9.0", features = ["implied-bounds"] }
 thiserror = "2.0.18"
 
 [dev-dependencies]
+errgonomic = { git = "https://github.com/DenisGorbachev/errgonomic" }
 tokio = { version = "1.49.0", features = ["macros", "fs", "net", "rt", "rt-multi-thread"] }
 clap = { version = "4.5.60", features = ["derive", "env"] }
