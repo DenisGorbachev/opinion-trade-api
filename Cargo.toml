@@ -68,7 +68,7 @@ derive_more = { version = "2.1.1", features = ["full"] }
 strum = { version = "0.27.2", features = ["derive"] }
 futures = "0.3.32"
 serde = { version = "1.0.228", features = ["derive"] }
-rkyv = { version = "0.8.14", optional = true }
+rkyv = { version = "0.8.16", optional = true }
 bon = { version = "3.9.0", features = ["implied-bounds"] }
 thiserror = "2.0.18"
 
